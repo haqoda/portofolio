@@ -1,0 +1,1509 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hafizh Qodarisman — Portfolio</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #090c10;
+        --surface: #0e1318;
+        --border: #1d2730;
+        --accent: #f97316;
+        --accent2: #38bdf8;
+        --muted: #4a5568;
+        --text: #e2e8f0;
+        --text-dim: #8899aa;
+        --glow: rgba(249, 115, 22, 0.18);
+        --glow2: rgba(56, 189, 248, 0.12);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "DM Sans", sans-serif;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* ── NOISE OVERLAY ── */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 999;
+      }
+
+      /* ── SCROLLBAR ── */
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--accent);
+        border-radius: 2px;
+      }
+
+      /* ── NAV ── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.2rem 4rem;
+        background: rgba(9, 12, 16, 0.85);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-logo {
+        font-family: "Space Mono", monospace;
+        font-size: 0.85rem;
+        color: var(--accent);
+        letter-spacing: 0.05em;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2.5rem;
+        align-items: center;
+      }
+      .nav-links a {
+        font-size: 0.8rem;
+        color: var(--text-dim);
+        text-decoration: none;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-family: "Space Mono", monospace;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--accent);
+      }
+      .lang-toggle {
+        display: flex;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .lang-btn {
+        padding: 0.3rem 0.7rem;
+        font-size: 0.72rem;
+        cursor: pointer;
+        background: none;
+        border: none;
+        color: var(--text-dim);
+        font-family: "Space Mono", monospace;
+        letter-spacing: 0.05em;
+        transition: all 0.2s;
+      }
+      .lang-btn.active {
+        background: var(--accent);
+        color: #fff;
+      }
+
+      /* ── HERO ── */
+      #hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 4rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-grid-lines {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background-image:
+          linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
+        background-size: 60px 60px;
+      }
+      .hero-glow {
+        position: absolute;
+        top: 20%;
+        left: -10%;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+        pointer-events: none;
+      }
+      .hero-glow2 {
+        position: absolute;
+        bottom: 10%;
+        right: -5%;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, var(--glow2) 0%, transparent 70%);
+        pointer-events: none;
+      }
+      .hero-tag {
+        font-family: "Space Mono", monospace;
+        font-size: 0.75rem;
+        color: var(--accent);
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        animation: fadeUp 0.6s ease both;
+      }
+      .hero-name {
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        font-size: clamp(3rem, 7vw, 7rem);
+        line-height: 1;
+        letter-spacing: -0.02em;
+        color: var(--text);
+        animation: fadeUp 0.6s 0.1s ease both;
+      }
+      .hero-name span {
+        color: var(--accent);
+      }
+      .hero-sub {
+        margin-top: 1.5rem;
+        font-size: 1.1rem;
+        color: var(--text-dim);
+        max-width: 560px;
+        animation: fadeUp 0.6s 0.2s ease both;
+      }
+      .hero-stats {
+        display: flex;
+        gap: 3rem;
+        margin-top: 3rem;
+        animation: fadeUp 0.6s 0.3s ease both;
+      }
+      .stat-num {
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        font-size: 2.2rem;
+        color: var(--accent);
+      }
+      .stat-label {
+        font-size: 0.75rem;
+        color: var(--text-dim);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-family: "Space Mono", monospace;
+      }
+      .hero-cta {
+        margin-top: 2.5rem;
+        animation: fadeUp 0.6s 0.4s ease both;
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .btn {
+        padding: 0.75rem 1.8rem;
+        border-radius: 3px;
+        font-family: "Space Mono", monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.2s;
+      }
+      .btn-primary {
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        box-shadow: 0 0 24px rgba(249, 115, 22, 0.35);
+      }
+      .btn-primary:hover {
+        background: #ea6c0e;
+        box-shadow: 0 0 36px rgba(249, 115, 22, 0.55);
+        transform: translateY(-1px);
+      }
+      .btn-outline {
+        background: transparent;
+        color: var(--accent2);
+        border: 1px solid var(--accent2);
+      }
+      .btn-outline:hover {
+        background: rgba(56, 189, 248, 0.08);
+        transform: translateY(-1px);
+      }
+
+      /* ── SECTION COMMONS ── */
+      section {
+        padding: 6rem 4rem;
+      }
+      .section-header {
+        margin-bottom: 3.5rem;
+      }
+      .section-tag {
+        font-family: "Space Mono", monospace;
+        font-size: 0.72rem;
+        color: var(--accent);
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin-bottom: 0.75rem;
+      }
+      .section-title {
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        font-size: clamp(1.8rem, 3.5vw, 3rem);
+        color: var(--text);
+        line-height: 1.1;
+      }
+      .section-title span {
+        color: var(--accent2);
+      }
+      .divider {
+        width: 48px;
+        height: 2px;
+        background: linear-gradient(90deg, var(--accent), transparent);
+        margin-top: 1rem;
+      }
+
+      /* ── ABOUT / STACK ── */
+      #about {
+        background: var(--surface);
+      }
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+        align-items: start;
+      }
+      .about-text {
+        font-size: 1rem;
+        color: var(--text-dim);
+        line-height: 1.8;
+      }
+      .about-text p + p {
+        margin-top: 1rem;
+      }
+      .stack-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+      }
+      .stack-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.7rem 1rem;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        font-family: "Space Mono", monospace;
+        font-size: 0.78rem;
+        color: var(--text-dim);
+        transition:
+          border-color 0.2s,
+          color 0.2s;
+      }
+      .stack-item:hover {
+        border-color: var(--accent);
+        color: var(--text);
+      }
+      .stack-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--accent);
+        flex-shrink: 0;
+      }
+      .stack-dot.blue {
+        background: var(--accent2);
+      }
+
+      /* ── PROJECTS ── */
+      #projects {
+        background: var(--bg);
+      }
+      .filter-bar {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 2.5rem;
+        flex-wrap: wrap;
+      }
+      .filter-btn {
+        padding: 0.4rem 1rem;
+        border-radius: 3px;
+        font-family: "Space Mono", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+        border: 1px solid var(--border);
+        background: none;
+        color: var(--text-dim);
+        transition: all 0.2s;
+      }
+      .filter-btn.active,
+      .filter-btn:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+        background: var(--glow);
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 1.5rem;
+      }
+      .project-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        overflow: hidden;
+        transition:
+          border-color 0.3s,
+          transform 0.3s,
+          box-shadow 0.3s;
+        cursor: pointer;
+        position: relative;
+      }
+      .project-card:hover {
+        border-color: var(--accent);
+        transform: translateY(-4px);
+        box-shadow: 0 16px 48px rgba(249, 115, 22, 0.12);
+      }
+      .card-img {
+        height: 180px;
+        background: linear-gradient(135deg, #0f1923 0%, #1a2332 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        font-size: 2.5rem;
+        color: var(--border);
+        position: relative;
+        overflow: hidden;
+      }
+      .card-img::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          transparent 50%,
+          var(--surface) 100%
+        );
+      }
+      .card-num {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-family: "Space Mono", monospace;
+        font-size: 0.65rem;
+        color: var(--muted);
+        letter-spacing: 0.1em;
+      }
+      .card-body {
+        padding: 1.4rem;
+      }
+      .card-tags {
+        display: flex;
+        gap: 0.4rem;
+        flex-wrap: wrap;
+        margin-bottom: 0.8rem;
+      }
+      .tag {
+        font-family: "Space Mono", monospace;
+        font-size: 0.62rem;
+        padding: 0.2rem 0.55rem;
+        border-radius: 2px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .tag-orange {
+        background: rgba(249, 115, 22, 0.12);
+        color: var(--accent);
+        border: 1px solid rgba(249, 115, 22, 0.25);
+      }
+      .tag-blue {
+        background: rgba(56, 189, 248, 0.1);
+        color: var(--accent2);
+        border: 1px solid rgba(56, 189, 248, 0.2);
+      }
+      .tag-green {
+        background: rgba(52, 211, 153, 0.1);
+        color: #34d399;
+        border: 1px solid rgba(52, 211, 153, 0.2);
+      }
+      .tag-gray {
+        background: rgba(100, 116, 139, 0.1);
+        color: var(--text-dim);
+        border: 1px solid rgba(100, 116, 139, 0.2);
+      }
+      .card-title {
+        font-family: "Syne", sans-serif;
+        font-weight: 700;
+        font-size: 1.05rem;
+        color: var(--text);
+        margin-bottom: 0.5rem;
+      }
+      .card-desc {
+        font-size: 0.85rem;
+        color: var(--text-dim);
+        line-height: 1.6;
+      }
+      .card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.9rem 1.4rem;
+        border-top: 1px solid var(--border);
+      }
+      .card-year {
+        font-family: "Space Mono", monospace;
+        font-size: 0.7rem;
+        color: var(--muted);
+      }
+      .card-status {
+        font-family: "Space Mono", monospace;
+        font-size: 0.65rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+      .status-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+      }
+      .status-active {
+        background: #34d399;
+        box-shadow: 0 0 6px #34d399;
+      }
+      .status-inactive {
+        background: var(--muted);
+      }
+      .hidden {
+        display: none;
+      }
+
+      /* ── TIMELINE ── */
+      #experience {
+        background: var(--surface);
+      }
+      .timeline {
+        position: relative;
+        padding-left: 2rem;
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background: linear-gradient(
+          180deg,
+          var(--accent),
+          var(--accent2),
+          transparent
+        );
+      }
+      .tl-item {
+        position: relative;
+        padding: 0 0 3rem 2.5rem;
+      }
+      .tl-dot {
+        position: absolute;
+        left: -2.2rem;
+        top: 0.35rem;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--accent);
+        border: 2px solid var(--bg);
+        box-shadow: 0 0 10px rgba(249, 115, 22, 0.5);
+      }
+      .tl-year {
+        font-family: "Space Mono", monospace;
+        font-size: 0.72rem;
+        color: var(--accent);
+        letter-spacing: 0.12em;
+        margin-bottom: 0.3rem;
+      }
+      .tl-title {
+        font-family: "Syne", sans-serif;
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: var(--text);
+        margin-bottom: 0.25rem;
+      }
+      .tl-org {
+        font-size: 0.85rem;
+        color: var(--accent2);
+        margin-bottom: 0.6rem;
+      }
+      .tl-desc {
+        font-size: 0.9rem;
+        color: var(--text-dim);
+        line-height: 1.7;
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        padding: 3rem 4rem;
+        border-top: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .footer-logo {
+        font-family: "Space Mono", monospace;
+        font-size: 0.8rem;
+        color: var(--accent);
+      }
+      .footer-copy {
+        font-family: "Space Mono", monospace;
+        font-size: 0.7rem;
+        color: var(--muted);
+        letter-spacing: 0.05em;
+      }
+
+      /* ── ANIMATIONS ── */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 900px) {
+        nav {
+          padding: 1rem 1.5rem;
+        }
+        .nav-links a {
+          display: none;
+        }
+        #hero,
+        section,
+        footer {
+          padding-left: 1.5rem;
+          padding-right: 1.5rem;
+        }
+        .about-grid {
+          grid-template-columns: 1fr;
+          gap: 2.5rem;
+        }
+        .hero-stats {
+          gap: 1.5rem;
+        }
+      }
+      @media (max-width: 600px) {
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <div class="nav-logo">// hafizh_q</div>
+      <div class="nav-links">
+        <a href="#about" data-en="About" data-id="Tentang">About</a>
+        <a href="#projects" data-en="Projects" data-id="Proyek">Projects</a>
+        <a href="#experience" data-en="Experience" data-id="Pengalaman"
+          >Experience</a
+        >
+        <div class="lang-toggle">
+          <button class="lang-btn active" onclick="setLang('en')">EN</button>
+          <button class="lang-btn" onclick="setLang('id')">ID</button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero-grid-lines"></div>
+      <div class="hero-glow"></div>
+      <div class="hero-glow2"></div>
+      <div
+        class="hero-tag"
+        data-en="// Full-Stack Web Developer"
+        data-id="// Pengembang Web Full-Stack"
+      >
+        // Full-Stack Web Developer
+      </div>
+      <h1 class="hero-name">Hafizh<br /><span>Qodarisman</span></h1>
+      <p
+        class="hero-sub"
+        data-en="Building digital systems that matter — from disaster management platforms to fintech solutions across Indonesia and Southeast Asia."
+        data-id="Membangun sistem digital yang bermakna — dari platform penanggulangan bencana hingga solusi fintech di Indonesia dan Asia Tenggara."
+      >
+        Building digital systems that matter — from disaster management
+        platforms to fintech solutions across Indonesia and Southeast Asia.
+      </p>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">15+</div>
+          <div class="stat-label" data-en="Projects" data-id="Proyek">
+            Projects
+          </div>
+        </div>
+        <div>
+          <div class="stat-num">2018</div>
+          <div class="stat-label" data-en="Since" data-id="Mulai Karir">
+            Since
+          </div>
+        </div>
+        <div>
+          <div class="stat-num">3</div>
+          <div class="stat-label" data-en="Frameworks" data-id="Framework">
+            Frameworks
+          </div>
+        </div>
+      </div>
+      <div class="hero-cta">
+        <a
+          href="#projects"
+          class="btn btn-primary"
+          data-en="View Projects"
+          data-id="Lihat Proyek"
+          >View Projects</a
+        >
+        <a
+          href="#experience"
+          class="btn btn-outline"
+          data-en="My Journey"
+          data-id="Perjalanan Saya"
+          >My Journey</a
+        >
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="section-header reveal">
+        <div
+          class="section-tag"
+          data-en="// About Me"
+          data-id="// Tentang Saya"
+        >
+          // About Me
+        </div>
+        <h2
+          class="section-title"
+          data-en="Who I <span>Am</span>"
+          data-id="Siapa <span>Saya</span>"
+        >
+          Who I <span>Am</span>
+        </h2>
+        <div class="divider"></div>
+      </div>
+      <div class="about-grid">
+        <div class="reveal">
+          <div class="about-text">
+            <p
+              data-en="I'm a full-stack web developer with experience building information portals, GIS-integrated platforms, and back-office systems for government agencies, international organizations, and financial institutions."
+              data-id="Saya adalah pengembang web full-stack dengan pengalaman membangun portal informasi, platform terintegrasi GIS, dan sistem back-office untuk instansi pemerintah, organisasi internasional, dan lembaga keuangan."
+            >
+              I'm a full-stack web developer with experience building
+              information portals, GIS-integrated platforms, and back-office
+              systems for government agencies, international organizations, and
+              financial institutions.
+            </p>
+            <p
+              data-en="My work spans from disaster risk management systems for BNPB, environmental knowledge hubs for ASEAN, to QRIS merchant management and banking back-office systems — always using the right tool for the job."
+              data-id="Karya saya meliputi sistem manajemen risiko bencana untuk BNPB, knowledge hub lingkungan untuk ASEAN, hingga manajemen merchant QRIS dan sistem back-office perbankan — selalu menggunakan alat yang tepat."
+            >
+              My work spans from disaster risk management systems for BNPB,
+              environmental knowledge hubs for ASEAN, to QRIS merchant
+              management and banking back-office systems — always using the
+              right tool for the job.
+            </p>
+            <p
+              data-en="I also do UI/UX mockups using Figma, and I'm comfortable working as a fullstack developer end-to-end."
+              data-id="Saya juga membuat mockup UI/UX menggunakan Figma, dan nyaman bekerja sebagai fullstack developer dari awal hingga akhir."
+            >
+              I also do UI/UX mockups using Figma, and I'm comfortable working
+              as a fullstack developer end-to-end.
+            </p>
+          </div>
+        </div>
+        <div class="reveal">
+          <div
+            class="section-tag"
+            style="margin-bottom: 1rem"
+            data-en="// Tech Stack"
+            data-id="// Teknologi"
+          >
+            // Tech Stack
+          </div>
+          <div class="stack-grid">
+            <div class="stack-item">
+              <span class="stack-dot"></span>CodeIgniter
+            </div>
+            <div class="stack-item"><span class="stack-dot"></span>Laravel</div>
+            <div class="stack-item">
+              <span class="stack-dot blue"></span>Next.js
+            </div>
+            <div class="stack-item">
+              <span class="stack-dot blue"></span>React
+            </div>
+            <div class="stack-item"><span class="stack-dot"></span>PHP</div>
+            <div class="stack-item">
+              <span class="stack-dot blue"></span>JavaScript
+            </div>
+            <div class="stack-item"><span class="stack-dot"></span>MySQL</div>
+            <div class="stack-item">
+              <span class="stack-dot blue"></span>Leaflet / GIS
+            </div>
+            <div class="stack-item"><span class="stack-dot"></span>Figma</div>
+            <div class="stack-item">
+              <span class="stack-dot blue"></span>REST API
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="section-header reveal">
+        <div
+          class="section-tag"
+          data-en="// Selected Work"
+          data-id="// Karya Pilihan"
+        >
+          // Selected Work
+        </div>
+        <h2
+          class="section-title"
+          data-en="My <span>Projects</span>"
+          data-id="Proyek <span>Saya</span>"
+        >
+          My <span>Projects</span>
+        </h2>
+        <div class="divider"></div>
+      </div>
+
+      <div class="filter-bar reveal">
+        <button
+          class="filter-btn active"
+          onclick="filterProjects('all')"
+          data-en="All"
+          data-id="Semua"
+        >
+          All
+        </button>
+        <button
+          class="filter-btn"
+          onclick="filterProjects('government')"
+          data-en="Government"
+          data-id="Pemerintah"
+        >
+          Government
+        </button>
+        <button
+          class="filter-btn"
+          onclick="filterProjects('fintech')"
+          data-en="Fintech"
+          data-id="Fintech"
+        >
+          Fintech
+        </button>
+        <button
+          class="filter-btn"
+          onclick="filterProjects('asean')"
+          data-en="ASEAN"
+          data-id="ASEAN"
+        >
+          ASEAN
+        </button>
+        <button
+          class="filter-btn"
+          onclick="filterProjects('design')"
+          data-en="Design"
+          data-id="Desain"
+        >
+          Design
+        </button>
+      </div>
+
+      <div class="projects-grid" id="projects-grid">
+        <div class="project-card reveal" data-category="government">
+          <div
+            class="card-img"
+            style="background: linear-gradient(135deg, #0a1628, #1a2c4a)"
+          >
+            <span style="font-size: 3rem; opacity: 0.15">🗺</span>
+            <span class="card-num">#01</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tags">
+              <span class="tag tag-orange">BNPB</span>
+              <span class="tag tag-blue">CodeIgniter</span>
+              <span class="tag tag-blue">GIS</span>
+            </div>
+            <div class="card-title">SiRenkon</div>
+            <div
+              class="card-desc"
+              data-en="Sistem Informasi Rencana Kontijensi — an information portal for Indonesia's contingency planning and disaster management with interactive maps."
+              data-id="Sistem Informasi Rencana Kontijensi — portal informasi rencana kontijensi penanggulangan bencana di Indonesia dengan peta interaktif."
+            >
+              Sistem Informasi Rencana Kontijensi — an information portal for
+              Indonesia's contingency planning and disaster management with
+              interactive maps.
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="card-year">2018</span>
+            <span class="card-status"
+              ><span class="status-dot status-inactive"></span
+              ><span data-en="Inactive" data-id="Tidak Aktif"
+                >Inactive</span
+              ></span
+            >
+          </div>
+        </div>
+
+        <div class="project-card reveal" data-category="government">
+          <div
+            class="card-img"
+            style="background: linear-gradient(135deg, #0a1f1a, #0e2d22)"
+          >
+            <span style="font-size: 3rem; opacity: 0.15">🏘</span>
+            <span class="card-num">#02</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tags">
+              <span class="tag tag-orange">BNPB</span>
+              <span class="tag tag-blue">CodeIgniter</span>
+            </div>
+            <div class="card-title">Destana — Penilaian Ketangguhan Desa</div>
+            <div
+              class="card-desc"
+              data-en="Portal for measuring and displaying the disaster resilience index of villages across all of Indonesia."
+              data-id="Portal untuk mengukur dan menampilkan indeks nilai ketangguhan desa terhadap bencana di seluruh Indonesia."
+            >
+              Portal for measuring and displaying the disaster resilience index
+              of villages across all of Indonesia.
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="card-year">2018</span>
+            <span class="card-status"
+              ><span class="status-dot status-active"></span
+              ><span data-en="Active" data-id="Aktif">Active</span></span
+            >
+          </div>
+        </div>
+
+        <div class="project-card reveal" data-category="government">
+          <div
+            class="card-img"
+            style="background: linear-gradient(135deg, #1a1028, #2a1a42)"
+          >
+            <span style="font-size: 3rem; opacity: 0.15">📚</span>
+            <span class="card-num">#03</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tags">
+              <span class="tag tag-orange">BNPB</span>
+              <span class="tag tag-blue">Laravel</span>
+              <span class="tag tag-green">PERPUSNAS</span>
+            </div>
+            <div class="card-title">Sejarah Portal Literasi BNPB</div>
+            <div
+              class="card-desc"
+              data-en="Disaster literacy information portal supported by the National Library and National Archives of Indonesia."
+              data-id="Portal literasi bencana didukung PERPUSNAS dan ARSIP Nasional Indonesia untuk pengumpulan data literasi bencana."
+            >
+              Disaster literacy information portal supported by the National
+              Library and National Archives of Indonesia.
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="card-year">2020</span>
+            <span class="card-status"
+              ><span class="status-dot status-active"></span
+              ><span data-en="Active" data-id="Aktif">Active</span></span
+            >
+          </div>
+        </div>
+
+        <div class="project-card reveal" data-category="asean">
+          <div
+            class="card-img"
+            style="background: linear-gradient(135deg, #0f1f0a, #1a3010)"
+          >
+            <span style="font-size: 3rem; opacity: 0.15">🌿</span>
+            <span class="card-num">#04</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tags">
+              <span class="tag tag-green">ASEAN</span>
+              <span class="tag tag-blue">Laravel</span>
+            </div>
+            <div class="card-title">Environment Knowledge Hub ASEAN</div>
+            <div
+              class="card-desc"
+              data-en="ASEAN's regional environmental knowledge hub covering climate change, coastal, biodiversity, and sustainable cities."
+              data-id="Hub pengetahuan lingkungan regional ASEAN mencakup perubahan iklim, pesisir, keanekaragaman hayati, dan kota berkelanjutan."
+            >
+              ASEAN's regional environmental knowledge hub covering climate
+              change, coastal, biodiversity, and sustainable cities.
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="card-year">2020–2021</span>
+            <span class="card-status"
+              ><span class="status-dot status-active"></span
+              ><span data-en="Active" data-id="Aktif">Active</span></span
+            >
+          </div>
+        </div>
+
+        <div class="project-card reveal" data-category="asean">
+          <div
+            class="card-img"
+            style="background: linear-gradient(135deg, #0a1525, #0e1f35)"
+          >
+            <span style="font-size: 3rem; opacity: 0.15">📊</span>
+            <span class="card-num">#05</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tags">
+              <span class="tag tag-green">ASEAN</span>
+              <span class="tag tag-blue">Laravel</span>
+            </div>
+            <div class="card-title">AADMER Work Programme 2021–2025 M&E</div>
+            <div
+              class="card-desc"
+              data-en="Web-based monitoring and evaluation system for ASEAN's AADMER disaster management work programme tracking."
+              data-id="Sistem monitoring dan evaluasi berbasis web untuk program kerja penanggulangan bencana AADMER ASEAN."
+            >
+              Web-based monitoring and evaluation system for ASEAN's AADMER
+              disaster management work programme tracking.
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="card-year">2020–2021</span>
+            <span class="card-status"
+              ><span class="status-dot status-active"></span
+              ><span data-en="Active" data-id="Aktif">Active</span></span
+            >
+          </div>
+        </div>
+
+        <div class="project-card reveal" data-category="government">
+          <div
+            class="card-img"
+            style="background: linear-gradient(135deg, #1f0a0a, #321010)"
+          >
+            <span style="font-size: 3rem; opacity: 0.15">🔍</span>
+            <span class="card-num">#06</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tags">
+              <span class="tag tag-orange">Caribencana</span>
+              <span class="tag tag-blue">Laravel</span>
+              <span class="tag tag-blue">GIS</span>
+            </div>
+            <div class="card-title">Caribencana.id/maps v1</div>
+            <div
+              class="card-desc"
+              data-en="Aggregated disaster research journals and documents visualized as an interactive map with InaRISK layer support."
+              data-id="Kumpulan jurnal dan dokumen penelitian bencana divisualisasikan sebagai peta interaktif dengan dukungan layer InaRISK."
+            >
+              Aggregated disaster research journals and documents visualized as
+              an interactive map with InaRISK layer support.
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="card-year">2019</span>
+            <span class="card-status"
+              ><span class="status-dot status-active"></span
+              ><span data-en="Active" data-id="Aktif">Active</span></span
+            >
+          </div>
+        </div>
+
+        <div class="project-card reveal" data-category="government">
+          <div
+            class="card-img"
+            style="background: linear-gradient(135deg, #1a1500, #2a2200)"
+          >
+            <span style="font-size: 3rem; opacity: 0.15">🌐</span>
+            <span class="card-num">#07</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tags">
+              <span class="tag tag-orange">Caribencana</span>
+              <span class="tag tag-blue">Laravel</span>
+              <span class="tag tag-gray">Fullstack</span>
+            </div>
+            <div class="card-title">Knowledge.Caribencana.id v2</div>
+            <div
+              class="card-desc"
+              data-en="Revamped version with a completely new UI and added features including Special Briefs. Role: Fullstack Developer."
+              data-id="Versi baru dengan UI yang dirancang ulang total dan fitur tambahan termasuk halaman Special Briefs. Peran: Fullstack Developer."
+            >
+              Revamped version with a completely new UI and added features
+              including Special Briefs. Role: Fullstack Developer.
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="card-year">2022</span>
+            <span class="card-status"
+              ><span class="status-dot status-active"></span
+              ><span data-en="Active" data-id="Aktif">Active</span></span
+            >
+          </div>
+        </div>
+
+        <div class="project-card reveal" data-category="government">
+          <div
+            class="card-img"
+            style="background: linear-gradient(135deg, #100f1f, #1c1a30)"
+          >
+            <span style="font-size: 3rem; opacity: 0.15">📋</span>
+            <span class="card-num">#08</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tags">
+              <span class="tag tag-orange">Caribencana</span>
+              <span class="tag tag-blue">Laravel</span>
+              <span class="tag tag-gray">Internal</span>
+            </div>
+            <div class="card-title">Project Management Caribencana.id</div>
+            <div
+              class="card-desc"
+              data-en="Internal project management dashboard system for Caribencana.id team operations."
+              data-id="Sistem dashboard manajemen proyek internal untuk operasional tim Caribencana.id."
+            >
+              Internal project management dashboard system for Caribencana.id
+              team operations.
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="card-year">2022</span>
+            <span class="card-status"
+              ><span class="status-dot status-active"></span
+              ><span data-en="Active" data-id="Aktif">Active</span></span
+            >
+          </div>
+        </div>
+
+        <div class="project-card reveal" data-category="fintech">
+          <div
+            class="card-img"
+            style="background: linear-gradient(135deg, #0a1520, #0c1e30)"
+          >
+            <span style="font-size: 3rem; opacity: 0.15">💳</span>
+            <span class="card-num">#09</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tags">
+              <span class="tag tag-orange">PT. Pos Indonesia</span>
+              <span class="tag tag-blue">Laravel</span>
+              <span class="tag tag-gray">Internal</span>
+            </div>
+            <div class="card-title">Merchant QRIS PT. Pos Indonesia</div>
+            <div
+              class="card-desc"
+              data-en="Internal QRIS merchant management system for PT. Pos Indonesia's payment network."
+              data-id="Sistem manajemen merchant QRIS internal untuk jaringan pembayaran PT. Pos Indonesia."
+            >
+              Internal QRIS merchant management system for PT. Pos Indonesia's
+              payment network.
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="card-year">2023</span>
+            <span class="card-status"
+              ><span class="status-dot status-active"></span
+              ><span data-en="Active" data-id="Aktif">Active</span></span
+            >
+          </div>
+        </div>
+
+        <div class="project-card reveal" data-category="fintech">
+          <div
+            class="card-img"
+            style="background: linear-gradient(135deg, #0f1a10, #152515)"
+          >
+            <span style="font-size: 3rem; opacity: 0.15">🏦</span>
+            <span class="card-num">#10</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tags">
+              <span class="tag tag-green">Bank BJBS</span>
+              <span class="tag tag-blue">Laravel</span>
+              <span class="tag tag-gray">Internal</span>
+            </div>
+            <div class="card-title">
+              Merchant QRIS Bank Jabar Banten Syariah
+            </div>
+            <div
+              class="card-desc"
+              data-en="QRIS merchant management system for Bank Jabar Banten Syariah (BJBS)."
+              data-id="Sistem manajemen merchant QRIS untuk Bank Jabar Banten Syariah (BJBS)."
+            >
+              QRIS merchant management system for Bank Jabar Banten Syariah
+              (BJBS).
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="card-year">2023</span>
+            <span class="card-status"
+              ><span class="status-dot status-active"></span
+              ><span data-en="Active" data-id="Aktif">Active</span></span
+            >
+          </div>
+        </div>
+
+        <div class="project-card reveal" data-category="fintech">
+          <div
+            class="card-img"
+            style="background: linear-gradient(135deg, #001a40, #00245a)"
+          >
+            <span style="font-size: 3rem; opacity: 0.15">🏛</span>
+            <span class="card-num">#11</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tags">
+              <span class="tag tag-blue">BCA Syariah</span>
+              <span class="tag tag-green">Next.js</span>
+              <span class="tag tag-gray">Internal</span>
+            </div>
+            <div class="card-title">BDS System BCA Syariah — Funding</div>
+            <div
+              class="card-desc"
+              data-en="Branch Distribution System back-office web app for BCA Syariah's Funding division."
+              data-id="Aplikasi web back-office Branch Distribution System untuk divisi Funding BCA Syariah."
+            >
+              Branch Distribution System back-office web app for BCA Syariah's
+              Funding division.
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="card-year">2023</span>
+            <span class="card-status"
+              ><span class="status-dot status-active"></span
+              ><span data-en="Active" data-id="Aktif">Active</span></span
+            >
+          </div>
+        </div>
+
+        <div class="project-card reveal" data-category="fintech">
+          <div
+            class="card-img"
+            style="background: linear-gradient(135deg, #001830, #002245)"
+          >
+            <span style="font-size: 3rem; opacity: 0.15">💼</span>
+            <span class="card-num">#12</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tags">
+              <span class="tag tag-blue">BCA Syariah</span>
+              <span class="tag tag-green">Next.js</span>
+              <span class="tag tag-gray">Internal</span>
+            </div>
+            <div class="card-title">BDS System BCA Syariah — Financing</div>
+            <div
+              class="card-desc"
+              data-en="Branch Distribution System back-office web app for BCA Syariah's Financing division."
+              data-id="Aplikasi web back-office Branch Distribution System untuk divisi Financing BCA Syariah."
+            >
+              Branch Distribution System back-office web app for BCA Syariah's
+              Financing division.
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="card-year">2023</span>
+            <span class="card-status"
+              ><span class="status-dot status-active"></span
+              ><span data-en="Active" data-id="Aktif">Active</span></span
+            >
+          </div>
+        </div>
+
+        <div class="project-card reveal" data-category="design">
+          <div
+            class="card-img"
+            style="background: linear-gradient(135deg, #1a0f20, #2a1535)"
+          >
+            <span style="font-size: 3rem; opacity: 0.15">🎨</span>
+            <span class="card-num">#13</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tags">
+              <span class="tag tag-orange">Caribencana</span>
+              <span class="tag tag-gray">Figma</span>
+              <span class="tag tag-gray">UI/UX</span>
+            </div>
+            <div class="card-title">Mockup Caribencana.id v2</div>
+            <div
+              class="card-desc"
+              data-en="Full UI/UX mockup and web design for Caribencana.id version 2 created in Figma."
+              data-id="Mockup UI/UX dan desain web lengkap untuk Caribencana.id versi 2 yang dibuat di Figma."
+            >
+              Full UI/UX mockup and web design for Caribencana.id version 2
+              created in Figma.
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="card-year">2021</span>
+            <span class="card-status" style="color: var(--muted)"
+              ><span data-en="Design" data-id="Desain">Design</span></span
+            >
+          </div>
+        </div>
+
+        <div class="project-card reveal" data-category="design">
+          <div
+            class="card-img"
+            style="background: linear-gradient(135deg, #1a0a0f, #2a1018)"
+          >
+            <span style="font-size: 3rem; opacity: 0.15">🖌</span>
+            <span class="card-num">#14</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tags">
+              <span class="tag tag-orange">Caribencana</span>
+              <span class="tag tag-gray">Figma</span>
+              <span class="tag tag-gray">UI/UX</span>
+            </div>
+            <div class="card-title">Mockup Landing Page Caribencana.id</div>
+            <div
+              class="card-desc"
+              data-en="UI/UX mockup for the Caribencana.id company profile landing page, designed in Figma."
+              data-id="Mockup UI/UX untuk landing page profil perusahaan Caribencana.id, dibuat menggunakan Figma."
+            >
+              UI/UX mockup for the Caribencana.id company profile landing page,
+              designed in Figma.
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="card-year">2019</span>
+            <span class="card-status" style="color: var(--muted)"
+              ><span data-en="Design" data-id="Desain">Design</span></span
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="section-header reveal">
+        <div
+          class="section-tag"
+          data-en="// Career Journey"
+          data-id="// Perjalanan Karir"
+        >
+          // Career Journey
+        </div>
+        <h2
+          class="section-title"
+          data-en="My <span>Experience</span>"
+          data-id="Pengalaman <span>Saya</span>"
+        >
+          My <span>Experience</span>
+        </h2>
+        <div class="divider"></div>
+      </div>
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2023 — Present</div>
+          <div
+            class="tl-title"
+            data-en="Fintech Backend Developer"
+            data-id="Developer Backend Fintech"
+          >
+            Fintech Backend Developer
+          </div>
+          <div class="tl-org">PT. Pos Indonesia · Bank BJBS · BCA Syariah</div>
+          <div
+            class="tl-desc"
+            data-en="Building QRIS merchant management systems and BDS back-office platforms for major Indonesian financial institutions using Laravel and Next.js."
+            data-id="Membangun sistem manajemen merchant QRIS dan platform back-office BDS untuk lembaga keuangan Indonesia terkemuka menggunakan Laravel dan Next.js."
+          >
+            Building QRIS merchant management systems and BDS back-office
+            platforms for major Indonesian financial institutions using Laravel
+            and Next.js.
+          </div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2019 — 2022</div>
+          <div
+            class="tl-title"
+            data-en="Fullstack Developer"
+            data-id="Fullstack Developer"
+          >
+            Fullstack Developer
+          </div>
+          <div class="tl-org">Caribencana.id (CARI!)</div>
+          <div
+            class="tl-desc"
+            data-en="Developed and maintained disaster risk knowledge portals, GIS-integrated maps, company landing pages, and internal project management systems. Also created UI/UX mockups using Figma."
+            data-id="Mengembangkan dan memelihara portal pengetahuan risiko bencana, peta terintegrasi GIS, landing page perusahaan, dan sistem manajemen proyek internal. Juga membuat mockup UI/UX menggunakan Figma."
+          >
+            Developed and maintained disaster risk knowledge portals,
+            GIS-integrated maps, company landing pages, and internal project
+            management systems. Also created UI/UX mockups using Figma.
+          </div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2020 — 2021</div>
+          <div
+            class="tl-title"
+            data-en="Web Developer — ASEAN Projects"
+            data-id="Web Developer — Proyek ASEAN"
+          >
+            Web Developer — ASEAN Projects
+          </div>
+          <div class="tl-org">ASEAN (Environment Hub & AADMER M&E)</div>
+          <div
+            class="tl-desc"
+            data-en="Built regional-scale web systems for ASEAN including the Environment Knowledge Hub and the AADMER Work Programme Monitoring & Evaluation platform using Laravel."
+            data-id="Membangun sistem web skala regional untuk ASEAN termasuk Environment Knowledge Hub dan platform Monitoring & Evaluasi Program Kerja AADMER menggunakan Laravel."
+          >
+            Built regional-scale web systems for ASEAN including the Environment
+            Knowledge Hub and the AADMER Work Programme Monitoring & Evaluation
+            platform using Laravel.
+          </div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2018</div>
+          <div
+            class="tl-title"
+            data-en="Web Developer — Government"
+            data-id="Web Developer — Pemerintah"
+          >
+            Web Developer — Government
+          </div>
+          <div class="tl-org">BNPB (Badan Nasional Penanggulangan Bencana)</div>
+          <div
+            class="tl-desc"
+            data-en="Developed SiRenkon (contingency planning portal) and Destana (village resilience assessment platform) for Indonesia's National Disaster Management Authority using CodeIgniter."
+            data-id="Mengembangkan SiRenkon (portal rencana kontijensi) dan Destana (platform penilaian ketangguhan desa) untuk BNPB menggunakan CodeIgniter."
+          >
+            Developed SiRenkon (contingency planning portal) and Destana
+            (village resilience assessment platform) for Indonesia's National
+            Disaster Management Authority using CodeIgniter.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-logo">// hafizh_qodarisman</div>
+      <div
+        class="footer-copy"
+        data-en="Built with HTML · CSS · JS — Deploy-ready for GitHub Pages"
+        data-id="Dibuat dengan HTML · CSS · JS — Siap deploy di GitHub Pages"
+      >
+        Built with HTML · CSS · JS — Deploy-ready for GitHub Pages
+      </div>
+    </footer>
+
+    <script>
+      /* ── LANGUAGE TOGGLE ── */
+      let currentLang = "en";
+
+      function setLang(lang) {
+        currentLang = lang;
+        document
+          .querySelectorAll(".lang-btn")
+          .forEach((b) => b.classList.remove("active"));
+        document
+          .querySelector(`.lang-btn[onclick="setLang('${lang}')"]`)
+          .classList.add("active");
+
+        document.querySelectorAll("[data-en]").forEach((el) => {
+          const val = el.getAttribute("data-" + lang);
+          if (val !== null) {
+            if (el.tagName === "H2" || el.tagName === "H1") {
+              el.innerHTML = val;
+            } else {
+              el.textContent = val;
+            }
+          }
+        });
+      }
+
+      /* ── FILTER ── */
+      function filterProjects(cat) {
+        document
+          .querySelectorAll(".filter-btn")
+          .forEach((b) => b.classList.remove("active"));
+        event.target.classList.add("active");
+
+        document.querySelectorAll(".project-card").forEach((card) => {
+          if (cat === "all" || card.dataset.category === cat) {
+            card.classList.remove("hidden");
+          } else {
+            card.classList.add("hidden");
+          }
+        });
+      }
+
+      /* ── REVEAL ON SCROLL ── */
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e, i) => {
+            if (e.isIntersecting) {
+              setTimeout(() => e.target.classList.add("visible"), i * 80);
+              observer.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>
